@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Login Constraint Layout</string>
+    <string name="login_label">Please, enter your \nname and password!</string>
+    <string name="name">name</string>
+    <string name="password">password</string>
+    <string name="btn_login">Login</string>
+</resources>
