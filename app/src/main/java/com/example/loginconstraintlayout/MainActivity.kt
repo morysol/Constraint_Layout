@@ -1,40 +1,40 @@
 package com.example.loginconstraintlayout
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.loginconstraintlayout.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
-    private var loginLabel: TextView? = null
-    private var btnLogin: Button? = null
-    private var editName: EditText? = null
-    private var editPass: EditText? = null
 
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loginLabel = findViewById(R.id.loginLabel)
-        btnLogin = findViewById(R.id.btn)
-        editName = findViewById(R.id.name)
-        editPass = findViewById(R.id.password)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        btnLogin?.setOnClickListener {
+        binding.btn.setOnClickListener {
 
-            if (editPass?.text.toString().isNotBlank() && editName?.text.toString().isNotBlank()
+            var infoMessage = "Hello, dear user!"
+
+            if (binding.password.text.toString().isNotBlank() && binding.name.text.toString()
+                    .isNotBlank()
             ) {
-                loginLabel?.text = "Hello, dear ${
-                    editName?.text.toString()
-                }!"
+                infoMessage = infoMessage.replace("user", binding.name.text.toString())
 
-                btnLogin?.setBackgroundColor(
+                binding.loginLabel.text = infoMessage
+
+                binding.btn.setBackgroundColor(
                     ContextCompat.getColor(this, R.color.btnLoginPressed)
                 )
-                btnLogin?.text = "Success!"
+                binding.btn.text = "Success!"
+                //    binding.btn.visibility = View.INVISIBLE
+                binding.btn.isEnabled = false
             }
         }
     }
