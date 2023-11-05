@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                     ContextCompat.getColor(this, R.color.btnLoginPressed)
                 )
                 binding.btn.text = "Success!"
-                //    binding.btn.visibility = View.INVISIBLE
                 binding.btn.isEnabled = false
             }
         }
