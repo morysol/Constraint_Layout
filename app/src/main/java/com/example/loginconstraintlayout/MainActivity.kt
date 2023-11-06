@@ -9,7 +9,9 @@ import androidx.core.widget.addTextChangedListener
 import com.example.loginconstraintlayout.databinding.ActivityMainBinding
 
 
-const val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+const val emailRegex =
+    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})\$"
+
 fun isValidEmail(email: String): Boolean {
     return email.matches(emailRegex.toRegex())
 }
