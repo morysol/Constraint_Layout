@@ -1,10 +1,17 @@
 package com.example.loginconstraintlayout
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.loginconstraintlayout.databinding.ActivityMainBinding
 
+
+const val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+fun isValidEmail(email: String): Boolean {
+    return email.matches(emailRegex.toRegex())
+}
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,9 +28,15 @@ class MainActivity : AppCompatActivity() {
         binding.btn.setOnClickListener {
 
             var infoMessage = "Hello, dear user!"
+            val login = binding.name.text.toString()
 
-            if (binding.password.text.toString().isNotBlank() && binding.name.text.toString()
-                    .isNotBlank()
+            var isLoginOK = login.isNotBlank() && isValidEmail(login)
+            Log.d(TAG, isLoginOK.toString())
+
+            var isPasswordOK = binding.password.text.toString().isNotBlank()
+
+
+            if (isLoginOK && isPasswordOK
             ) {
                 infoMessage = infoMessage.replace("user", binding.name.text.toString())
 
@@ -34,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 binding.btn.text = "Success!"
                 binding.btn.isEnabled = false
-                // test push
+
             }
         }
     }
