@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.loginconstraintlayout.databinding.ActivityMainBinding
 
 
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
+
+    private fun isCredential(login: Boolean, password: Boolean) = login && password
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,30 +28,48 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.btn.setOnClickListener {
+        binding.btn.isEnabled = false
 
-            var infoMessage = "Hello, dear user!"
-            val login = binding.name.text.toString()
+        var isLoginOK = false
+        var isPasswordOK = false
 
-            var isLoginOK = login.isNotBlank() && isValidEmail(login)
+        binding.name.addTextChangedListener {
+            Log.d(TAG, it.toString())
+            isLoginOK = it.toString().isNotBlank() && isValidEmail(it.toString())
             Log.d(TAG, isLoginOK.toString())
+            if (isCredential(isLoginOK, isPasswordOK)) binding.btn.isEnabled = true
+        }
 
-            var isPasswordOK = binding.password.text.toString().isNotBlank()
-
-
-            if (isLoginOK && isPasswordOK
-            ) {
-                infoMessage = infoMessage.replace("user", binding.name.text.toString())
-
-                binding.loginLabel.text = infoMessage
-
-                binding.btn.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.btnLoginPressed)
-                )
-                binding.btn.text = "Success!"
-                binding.btn.isEnabled = false
-
+        binding.password.addTextChangedListener {
+            Log.d(TAG, it.toString())
+            if (it != null) {
+                isPasswordOK = it.length > 4
             }
+            Log.d(TAG, isPasswordOK.toString())
+            if (isCredential(isLoginOK, isPasswordOK)) binding.btn.isEnabled = true
+        }
+
+        binding.btn.setOnClickListener {
+            var infoMessage = "Hello, dear user!"
+
+
+            infoMessage = infoMessage.replace("user", binding.name.text.toString())
+
+            binding.loginLabel.text = infoMessage
+
+            binding.btn.setBackgroundColor(
+                ContextCompat.getColor(this, R.color.btnLoginPressed)
+            )
+            binding.btn.text = "Success!"
+            binding.btn.isEnabled = false
+
+            binding.name.text = null
+            binding.name.isEnabled = false
+
+            binding.password.text = null
+            binding.password.isEnabled = false
+
+
         }
     }
 }
