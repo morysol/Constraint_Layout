@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Login Constraint Layout</string>
-    <string name="login_label">Please, enter your \nname and password!</string>
+    <string name="login_label">Security sign in</string>
     <string name="name">name</string>
     <string name="password">password</string>
-    <string name="btn_login">Login</string>
+    <string name="btn_login">Sign in</string>
+    <string name="wrong_email">email format is: name@company.com</string>
     <string name="success">success</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
